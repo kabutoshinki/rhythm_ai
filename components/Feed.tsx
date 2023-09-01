@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 import RhythmCard from "./RhythmCard";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 const RhythmCardList = ({ data, handleTagClick }: any) => {
   return (
     // <div className="mt-16 prompt_layout grid-cols-3">
@@ -17,7 +19,7 @@ const RhythmCardList = ({ data, handleTagClick }: any) => {
 
 const Feed = () => {
   const [allPosts, setAllPosts] = useState<any[]>([]);
-
+  const route = useRouter();
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
@@ -25,6 +27,11 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     const response = await fetch("/api/rhythm");
+    console.log(response?.ok);
+
+    if (!response.ok) {
+      route.replace("/404");
+    }
     const data = await response.json();
 
     setAllPosts(data);

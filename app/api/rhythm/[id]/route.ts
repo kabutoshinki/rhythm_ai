@@ -9,8 +9,8 @@ export const GET = async (res: any, { params }: any) => {
 
     return new Response(JSON.stringify(prompt), { status: 200 });
   } catch (error) {
-    console.log(error);
-    return new Response("Internal Server Error", { status: 500 });
+    // console.log(error);
+    return new Response("Internal Server Error, Please Try Again", { status: 500 });
   }
 };
 export const PATCH = async (res: any, { params }: any) => {
